@@ -4,11 +4,12 @@
 export default (config) => ({
   compiler_public_path: `http://${config.server_host}:${config.server_port}/`,
   proxy: {
-    enabled: false,
+    enabled: true,
     options: {
       // koa-proxy options
-      host: 'http://localhost:8000',
-      match: /^\/api\/.*/
+      host: 'http://localhost:1337',
+      match: /^\/api\/.*/,
+      map: function(path) { return path.replace('/api/', '/'); }
     }
   }
 })
