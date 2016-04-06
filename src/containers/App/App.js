@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
 
-export default class Root extends React.Component {
+export default class App extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     routes: PropTypes.element.isRequired,
@@ -21,12 +21,12 @@ export default class Root extends React.Component {
     if (__DEBUG__) {
       if (__DEBUG_NEW_WINDOW__) {
         if (!window.devToolsExtension) {
-          require('../redux/utils/createDevToolsWindow').default(this.props.store)
+          require('utils/createDevToolsWindow').default(this.props.store)
         } else {
           window.devToolsExtension.open()
         }
       } else if (!window.devToolsExtension) {
-        const DevTools = require('containers/DevTools').default
+        const DevTools = require('containers/DevTools/DevTools').default
         return <DevTools />
       }
     }

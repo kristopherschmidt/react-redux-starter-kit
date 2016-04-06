@@ -13,9 +13,11 @@ export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
 // DOUBLE NOTE: there is currently a bug with babel-eslint where a `space-infix-ops` error is
 // incorrectly thrown when using arrow functions, hence the oddity.
 export function increment (value: number = 1): Action {
-  return {
-    type: COUNTER_INCREMENT,
-    payload: value
+  return (dispatch: Function, getState: Function): Promise => {
+      fetch("http://localhost:3000/api/test", {
+        method: 'post',
+        body: "{ identifier: 'demo', password: 'demodemodemo' }"
+      });
   }
 }
 
@@ -27,12 +29,7 @@ export function increment (value: number = 1): Action {
 // reducer take care of this logic.
 export const doubleAsync = (): Function => {
   return (dispatch: Function, getState: Function): Promise => {
-    return new Promise((resolve: Function): void => {
-      setTimeout(() => {
-        dispatch(increment(getState().counter))
-        resolve()
-      }, 200)
-    })
+      fetch("http://localhost:3000/api/test");
   }
 }
 
