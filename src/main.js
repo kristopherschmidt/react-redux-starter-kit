@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import makeRoutes from './routes'
-import Root from './containers/Root'
+import { App } from './containers'
 import configureStore from './redux/configureStore'
 
 // Configure history for react-router
@@ -30,6 +30,6 @@ const routes = makeRoutes(store)
 // Now that redux and react-router have been configured, we can render the
 // React application to the DOM!
 ReactDOM.render(
-  <Root history={history} routes={routes} store={store} />,
+  <App history={history} routes={routes} store={store} />,
   document.getElementById('root')
 )
