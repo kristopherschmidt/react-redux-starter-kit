@@ -1,7 +1,7 @@
 import {
   COUNTER_INCREMENT,
   increment,
-  doubleAsync,
+  resetCounterFromServer,
   default as counterReducer
 } from 'redux/modules/counter'
 
@@ -49,7 +49,7 @@ describe('(Redux Module) Counter', function () {
     })
   })
 
-  describe('(Action Creator) doubleAsync', function () {
+  describe('(Action Creator) resetCounterFromServer', function () {
     let _globalState
     let _dispatchSpy
     let _getStateSpy
@@ -70,19 +70,19 @@ describe('(Redux Module) Counter', function () {
     })
 
     it('Should be exported as a function.', function () {
-      expect(doubleAsync).to.be.a('function')
+      expect(resetCounterFromServer).to.be.a('function')
     })
 
     it('Should return a function (is a thunk).', function () {
-      expect(doubleAsync()).to.be.a('function')
+      expect(resetCounterFromServer()).to.be.a('function')
     })
 
     it('Should return a promise from that thunk that gets fulfilled.', function () {
-      return doubleAsync()(_dispatchSpy, _getStateSpy).should.eventually.be.fulfilled
+      return resetCounterFromServer()(_dispatchSpy, _getStateSpy).should.eventually.be.fulfilled
     })
 
     it('Should call dispatch exactly once.', function () {
-      return doubleAsync()(_dispatchSpy, _getStateSpy)
+      return resetCounterFromServer()(_dispatchSpy, _getStateSpy)
         .then(() => {
           _dispatchSpy.should.have.been.calledOnce
         })
@@ -91,12 +91,12 @@ describe('(Redux Module) Counter', function () {
     it('Should produce a state that is double the previous state.', function () {
       _globalState = { counter: 2 }
 
-      return doubleAsync()(_dispatchSpy, _getStateSpy)
+      return resetCounterFromServer()(_dispatchSpy, _getStateSpy)
         .then(() => {
           _dispatchSpy.should.have.been.calledOnce
           _getStateSpy.should.have.been.calledOnce
           expect(_globalState.counter).to.equal(4)
-          return doubleAsync()(_dispatchSpy, _getStateSpy)
+          return resetCounterFromServer()(_dispatchSpy, _getStateSpy)
         })
         .then(() => {
           _dispatchSpy.should.have.been.calledTwice

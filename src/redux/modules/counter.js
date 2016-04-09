@@ -6,11 +6,6 @@ import fetch from 'isomorphic-fetch'
 export const COUNTER_INCREMENT = 'redux-example/counter/COUNTER_INCREMENT'
 export const SET_COUNTER = 'redux-example/counter/SET_COUNTER'
 
-export const actions = {
-  increment,
-  doubleAsync
-}
-
 const initialState = 0
 
 // ------------------------------------
@@ -23,7 +18,7 @@ export function increment (value = 1) {
   }
 }
 
-export function doubleAsync () {
+export function resetCounterFromServer () {
   return (dispatch, getState) => {
     fetch('http://localhost:3000/api/counter')
       .then((response) => response.json())

@@ -27,7 +27,7 @@ describe('(View) Home', function () {
     _props = {
       counter: 0,
       ...bindActionCreators({
-        doubleAsync: (_spies.doubleAsync = sinon.spy()),
+        resetCounterFromServer: (_spies.resetCounterFromServer = sinon.spy()),
         increment: (_spies.increment = sinon.spy())
       }, _spies.dispatch = sinon.spy())
     }
@@ -88,12 +88,12 @@ describe('(View) Home', function () {
     })
   })
 
-  describe('A Double (Async) button...', function () {
+  describe('A Reset button...', function () {
     let _btn
 
     beforeEach(() => {
       _btn = TestUtils.scryRenderedDOMComponentsWithTag(_rendered, 'button')
-        .filter(a => /Double/.test(a.textContent))[0]
+        .filter(a => /Reset/.test(a.textContent))[0]
     })
 
     it('should be rendered.', function () {

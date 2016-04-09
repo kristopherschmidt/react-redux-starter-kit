@@ -4,8 +4,8 @@ import { IndexLink } from 'react-router'
 
 function Topnav ({ children }) {
   return (
-     <Navbar fixedTop>
-        <Navbar.Header>
+    <Navbar fixedTop>
+      <Navbar.Header>
         <Navbar.Brand>
           <IndexLink to='/' activeStyle={{color: '#33e0ff'}}>
             <div/>
@@ -13,8 +13,8 @@ function Topnav ({ children }) {
           </IndexLink>
         </Navbar.Brand>
         <Navbar.Toggle/>
-        </Navbar.Header>
-      </Navbar>
+      </Navbar.Header>
+    </Navbar>
   )
 }
 

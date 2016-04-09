@@ -1,7 +1,7 @@
 /* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { increment, doubleAsync } from '../../redux/modules/counter'
+import { increment, resetCounterFromServer } from '../../redux/modules/counter'
 import classes from './HomeView.scss'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
@@ -13,7 +13,7 @@ import classes from './HomeView.scss'
 // Sorry Windows users :(.
 type Props = {
   counter: number,
-  doubleAsync: Function,
+  resetCounterFromServer: Function,
   increment: Function
 };
 
@@ -23,7 +23,7 @@ type Props = {
 export class HomeView extends React.Component<void, Props, void> {
   static propTypes = {
     counter: PropTypes.number.isRequired,
-    doubleAsync: PropTypes.func.isRequired,
+    resetCounterFromServer: PropTypes.func.isRequired,
     increment: PropTypes.func.isRequired
   };
 
@@ -37,11 +37,11 @@ export class HomeView extends React.Component<void, Props, void> {
           <span className={classes['counter--green']}>{this.props.counter}</span>
         </h2>
         <button className='btn btn-default' onClick={this.props.increment}>
-          Increment
+          Increment Counter with Redux event
         </button>
         {' '}
-        <button className='btn btn-default' onClick={this.props.doubleAsync}>
-          Double (Async)
+        <button className='btn btn-default' onClick={this.props.resetCounterFromServer}>
+          Reset Counter from Hapi Server
         </button>
       </div>
     )
@@ -53,5 +53,5 @@ const mapStateToProps = (state) => ({
 })
 export default connect((mapStateToProps), {
   increment: () => increment(1),
-  doubleAsync
+  resetCounterFromServer
 })(HomeView)
