@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch'
 // Constants
 // ------------------------------------
 export const COUNTER_INCREMENT = 'redux-example/counter/COUNTER_INCREMENT'
-export const COUNTER_DOUBLE = 'redux-example/counter/COUNTER_DOUBLE'
+export const SET_COUNTER = 'redux-example/counter/SET_COUNTER'
 
 export const actions = {
   increment,
@@ -28,7 +28,8 @@ export function increment (value = 1) {
 export function doubleAsync () {
   return (dispatch, getState) => {
       fetch("http://localhost:3000/api/counter")
-        .then(dispatch({ type: COUNTER_DOUBLE, payload: 1447 }));
+        .then(response => response.json())
+        .then(json => dispatch({ type: SET_COUNTER, counter: json.counter }));
   }
 }
 
@@ -37,7 +38,7 @@ export function doubleAsync () {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [COUNTER_INCREMENT]: (state, action) => state + action.payload,
-  [COUNTER_DOUBLE]: (state, action) => state * 2
+  [SET_COUNTER]: (state, action) => action.counter
 }
 
 // ------------------------------------
