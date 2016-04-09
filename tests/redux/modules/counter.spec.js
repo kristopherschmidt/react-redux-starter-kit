@@ -7,7 +7,7 @@ import {
 
 describe('(Redux Module) Counter', function () {
   it('Should export a constant COUNTER_INCREMENT.', function () {
-    expect(COUNTER_INCREMENT).to.equal('COUNTER_INCREMENT')
+    expect(COUNTER_INCREMENT).to.equal('redux-example/counter/COUNTER_INCREMENT')
   })
 
   describe('(Reducer)', function () {
@@ -81,11 +81,10 @@ describe('(Redux Module) Counter', function () {
       return doubleAsync()(_dispatchSpy, _getStateSpy).should.eventually.be.fulfilled
     })
 
-    it('Should call dispatch and getState exactly once.', function () {
+    it('Should call dispatch exactly once.', function () {
       return doubleAsync()(_dispatchSpy, _getStateSpy)
         .then(() => {
           _dispatchSpy.should.have.been.calledOnce
-          _getStateSpy.should.have.been.calledOnce
         })
     })
 
