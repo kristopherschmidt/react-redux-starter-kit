@@ -1,56 +1,60 @@
+import fetch from 'isomorphic-fetch'
+
 /* @flow */
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-
-// ------------------------------------
-// Actions
-// ------------------------------------
-// NOTE: "Action" is a Flow interface defined in https://github.com/TechnologyAdvice/flow-interfaces
-// If you're unfamiliar with Flow, you are completely welcome to avoid annotating your code, but
-// if you'd like to learn more you can check out: flowtype.org.
-// DOUBLE NOTE: there is currently a bug with babel-eslint where a `space-infix-ops` error is
-// incorrectly thrown when using arrow functions, hence the oddity.
-export function increment (value: number = 1): Action {
-  return (dispatch: Function, getState: Function): Promise => {
-      fetch("http://localhost:3000/api/test", {
-        method: 'post',
-        body: "{ identifier: 'demo', password: 'demodemodemo' }"
-      });
-  }
-}
-
-// This is a thunk, meaning it is a function that immediately
-// returns a function for lazy evaluation. It is incredibly useful for
-// creating async actions, especially when combined with redux-thunk!
-// NOTE: This is solely for demonstration purposes. In a real application,
-// you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-// reducer take care of this logic.
-export const doubleAsync = (): Function => {
-  return (dispatch: Function, getState: Function): Promise => {
-      fetch("http://localhost:3000/api/test");
-  }
-}
+export const COUNTER_INCREMENT = 'redux-example/counter/COUNTER_INCREMENT'
+export const COUNTER_DOUBLE = 'redux-example/counter/COUNTER_DOUBLE'
 
 export const actions = {
   increment,
   doubleAsync
 }
 
+const initialState = 0
+
+
+// ------------------------------------
+// Actions
+// ------------------------------------
+export function increment (value: number = 1): Action {
+  return {
+    type: COUNTER_INCREMENT,
+    payload: value
+  }
+}
+
+export const doubleAsync = (): Function => {
+  return (dispatch: Function, getState: Function): Promise => {
+      fetch("http://localhost:3000/api/counter")
+        .then(dispatch({ type: COUNTER_DOUBLE, payload: 1447 }));
+  }
+}
+
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]: (state: number, action: {payload: number}): number => state + action.payload
+  [COUNTER_INCREMENT]: (state: number, action: {payload: number}): number => state + action.payload,
+  [COUNTER_DOUBLE]: (state: number, action: {payload: number}): number => state * 2
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = 0
-export default function counterReducer (state: number = initialState, action: Action): number {
+export default function reducer (state: number = initialState, action: Action): number {
   const handler = ACTION_HANDLERS[action.type]
-
   return handler ? handler(state, action) : state
 }
+
+/*
+export default function reducer(state: number = initialState, action: Action) {
+  switch (action.type) {
+    case COUNTER_INCREMENT:
+      return state + action.payload * 2;
+    case COUNTER_DOUBLE:
+      return state * 2;
+    default: return state;
+  }
+  */
