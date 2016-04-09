@@ -9,7 +9,7 @@ export default (config) => ({
       // koa-proxy options
       host: 'http://localhost:1337',
       match: /^\/api\/.*/,
-      map: function(path) { return path.replace('/api/', '/'); }
+      map: function (path) { return path.replace('/api/', '/') }
     }
   }
 })

@@ -1,4 +1,3 @@
-/* @flow */
 import fetch from 'isomorphic-fetch'
 
 // ------------------------------------
@@ -14,7 +13,6 @@ export const actions = {
 
 const initialState = 0
 
-
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -27,9 +25,9 @@ export function increment (value = 1) {
 
 export function doubleAsync () {
   return (dispatch, getState) => {
-      fetch("http://localhost:3000/api/counter")
-        .then(response => response.json())
-        .then(json => dispatch({ type: SET_COUNTER, counter: json.counter }));
+    fetch('http://localhost:3000/api/counter')
+      .then((response) => response.json())
+      .then((json) => dispatch({ type: SET_COUNTER, counter: json.counter }))
   }
 }
 
