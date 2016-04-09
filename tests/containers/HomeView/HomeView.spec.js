@@ -1,7 +1,7 @@
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import { bindActionCreators } from 'redux'
-import { HomeView } from 'containers'
+import { HomeView } from 'containers/HomeView/HomeView'
 import { mount } from 'enzyme'
 
 function shallowRender (component) {
