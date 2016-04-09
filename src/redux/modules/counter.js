@@ -19,16 +19,22 @@ const initialState = 0
 // Actions
 // ------------------------------------
 export function increment (value: number = 1): Action {
-  return {
-    type: COUNTER_INCREMENT,
-    payload: value
+  return (dispatch: Function, getState: Function): Promise => {
+      fetch("http://localhost:3000/api/test", {
+        method: 'post',
+        body: "{ identifier: 'demo', password: 'demodemodemo' }"
+      });
   }
 }
 
 export const doubleAsync = (): Function => {
   return (dispatch: Function, getState: Function): Promise => {
+<<<<<<< HEAD
       fetch("http://localhost:3000/api/counter")
         .then(dispatch({ type: COUNTER_DOUBLE, payload: 1447 }));
+=======
+      fetch("http://localhost:3000/api/test");
+>>>>>>> bc6d15f1cc79efe724eb15ac78253108b646e518
   }
 }
 
