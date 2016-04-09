@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch'
 
-/* @flow */
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -18,15 +17,15 @@ const initialState = 0
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function increment (value: number = 1): Action {
+export function increment (value = 1) {
   return {
     type: COUNTER_INCREMENT,
     payload: value
   }
 }
 
-export const doubleAsync = (): Function => {
-  return (dispatch: Function, getState: Function): Promise => {
+export function doubleAsync () {
+  return (dispatch, getState) => {
       fetch("http://localhost:3000/api/counter")
         .then(dispatch({ type: COUNTER_DOUBLE, payload: 1447 }));
   }
@@ -36,25 +35,14 @@ export const doubleAsync = (): Function => {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]: (state: number, action: {payload: number}): number => state + action.payload,
-  [COUNTER_DOUBLE]: (state: number, action: {payload: number}): number => state * 2
+  [COUNTER_INCREMENT]: (state, action) => state + action.payload,
+  [COUNTER_DOUBLE]: (state, action) => state * 2
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export default function reducer (state: number = initialState, action: Action): number {
+export default function reducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }
-
-/*
-export default function reducer(state: number = initialState, action: Action) {
-  switch (action.type) {
-    case COUNTER_INCREMENT:
-      return state + action.payload * 2;
-    case COUNTER_DOUBLE:
-      return state * 2;
-    default: return state;
-  }
-  */
